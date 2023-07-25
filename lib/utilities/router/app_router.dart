@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nethive/app/presentation/screens/error.dart';
 import 'package:nethive/app/presentation/screens/new/lanch.dart';
 import 'package:nethive/app/presentation/screens/new/log_record.dart';
+import 'package:nethive/app/presentation/screens/new/no_internet.dart';
 
 import 'package:nethive/app/presentation/screens/new/open_stock_screen.dart';
 import 'package:nethive/app/presentation/screens/new/options.dart';
@@ -22,7 +23,11 @@ class AppRouter {
       //   );
       case Routes.homeScreen:
         return MaterialPageRoute(
-          builder: (_) => const LaunchScreen(),
+          builder: (_) => const WebViewApp(),
+        );
+      case Routes.noInternet:
+        return MaterialPageRoute(
+          builder: (_) => const NoInternet(),
         );
       case Routes.viewSales:
         return MaterialPageRoute(

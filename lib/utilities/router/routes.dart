@@ -12,6 +12,5 @@ class Routes {
   static const String openStock = "/openStock";
   static const String logs = "/logs";
   static const String viewSales = "/viewSales";
-
-
+  static const String noInternet = "/noInternet";
 }
