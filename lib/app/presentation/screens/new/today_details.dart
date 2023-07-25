@@ -54,9 +54,7 @@ class _TodayDetailsState extends State<TodayDetails> {
                         Container(
                           height: 5,
                           width: 150,
-                          decoration: const BoxDecoration(
-                            color: Color.fromARGB(255, 0, 44, 139),
-                          ),
+                          decoration: const BoxDecoration(),
                         ),
                         Container(
                           height: 5,

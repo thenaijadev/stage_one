@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:nethive/app/presentation/widgets/title_text.dart';
-import 'package:nethive/utilities/router/routes.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LaunchScreen extends StatefulWidget {
@@ -17,13 +16,11 @@ class _LaunchScreenState extends State<LaunchScreen> {
   late StreamSubscription<ConnectivityResult> subscription;
   final Uri _url = Uri.parse('https://gdnportaldemo.nubiaville.com');
   Future<void> _launchUrl() async {
-    final connectivityResult = await (Connectivity().checkConnectivity());
-
     subscription = Connectivity()
         .onConnectivityChanged
         .listen((ConnectivityResult result) async {
       if (result == ConnectivityResult.none) {
-        Navigator.popAndPushNamed(context, Routes.homeScreen);
+        Navigator.pop(context);
       } else {
         if (!await launchUrl(
           _url,
@@ -33,11 +30,6 @@ class _LaunchScreenState extends State<LaunchScreen> {
         }
       }
     });
-    // if (connectivityResult != ConnectivityResult.none) {
-    //   if (!await launchUrl(_url, mode: LaunchMode.inAppWebView)) {
-    //     throw Exception('Could not launch $_url');
-    //   }
-    // }
   }
 
   @override
@@ -54,32 +46,64 @@ class _LaunchScreenState extends State<LaunchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Padding(
-        padding: EdgeInsets.only(top: 120.0, left: 20, right: 20, bottom: 110),
-        child: Center(
-          child: Card(
-            elevation: 50,
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Icon(Icons.error_outline, size: 50, color: Colors.red),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TextWidget(
-                        textAlign: TextAlign.center,
-                        text:
-                            "Sorry, you are not connected to the Internet. Please connect to the internet."),
-                  ],
+    return Scaffold(
+        backgroundColor: Colors.white,
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset("assets/images/no_internet.png"),
+              const TextWidget(
+                text: "No Internet Connection",
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                child: TextWidget(
+                  textAlign: TextAlign.center,
+                  text: "Please check your internet connection and try again.",
+                  fontSize: 18,
                 ),
               ),
-            ),
+              const SizedBox(
+                height: 20,
+              ),
+              GestureDetector(
+                onTap: () async {
+                  final connectivityResult =
+                      await (Connectivity().checkConnectivity());
+                  if (connectivityResult == ConnectivityResult.none) {
+                    return;
+                  } else {
+                    if (!await launchUrl(_url, mode: LaunchMode.inAppWebView)) {
+                      throw Exception('Could not launch $_url');
+                    }
+                  }
+                },
+                child: Container(
+                  height: 50,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: const Color.fromARGB(255, 0, 44, 139),
+                  ),
+                  child: const Center(
+                    child: TextWidget(
+                      text: "Try again",
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 19,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
