@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:nethive/app/presentation/screens/new/navigation_controls.dart';
 import 'package:nethive/utilities/router/routes.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewStack extends StatefulWidget {
-  const WebViewStack({required this.controller, super.key});
+  const WebViewStack({
+    required this.controller,
+    super.key,
+  });
   final WebViewController controller;
 
   @override
@@ -12,7 +16,10 @@ class WebViewStack extends StatefulWidget {
 
 class _WebViewStackState extends State<WebViewStack> {
   var loadingPercentage = 0;
+
   bool isLoading = false;
+  String theUrl = "";
+
   @override
   void initState() {
     super.initState();
@@ -36,10 +43,11 @@ class _WebViewStackState extends State<WebViewStack> {
                 error.errorCode.toString() == "-2" ||
                 error.description.toString() ==
                     "net::ERR_INTERNET_DISCONNECTED") {
-              Navigator.pushReplacementNamed(context, Routes.noInternet);
+              Navigator.popAndPushNamed(context, Routes.noInternet);
             }
           },
           onPageFinished: (url) {
+            theUrl = url;
             setState(() {
               isLoading = false;
               loadingPercentage = 100;
@@ -78,17 +86,29 @@ class _WebViewStackState extends State<WebViewStack> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        WebViewWidget(
-          controller: widget.controller,
-        ),
-        // isLoading ? Center(child: CircularProgressIndicator()) : Text(""),
-        if (loadingPercentage < 100)
-          LinearProgressIndicator(
-            value: loadingPercentage / 100.0,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xff1F5AA2),
+        title: const Text('GDN Nethive'),
+        // Add from here...
+        actions: [
+          NavigationControls(controller: widget.controller, url: theUrl),
+          // Menu(controller: controller),
+        ],
+        // ...to here.
+      ),
+      body: Stack(
+        children: [
+          WebViewWidget(
+            controller: widget.controller,
           ),
-      ],
+          // isLoading ? Center(child: CircularProgressIndicator()) : Text(""),
+          if (loadingPercentage < 100)
+            LinearProgressIndicator(
+              value: loadingPercentage / 100.0,
+            ),
+        ],
+      ),
     );
   }
 }

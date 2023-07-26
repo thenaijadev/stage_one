@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:nethive/app/presentation/screens/new/navigation_controls.dart';
 import 'package:nethive/app/presentation/screens/new/web_view_stack.dart';
 import 'package:nethive/utilities/router/routes.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -43,16 +42,6 @@ class _WebViewAppState extends State<WebViewApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xff1F5AA2),
-        title: const Text('GDN Nethive'),
-        // Add from here...
-        actions: [
-          NavigationControls(controller: controller),
-          // Menu(controller: controller),
-        ],
-        // ...to here.
-      ),
       body: WebViewStack(controller: controller),
     );
   }
