@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nethive/app/presentation/screens/new/navigation_controls.dart';
 import 'package:nethive/utilities/router/routes.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class WebViewStack extends StatefulWidget {
+final provider = StateProvider((ref) => "");
+
+class WebViewStack extends ConsumerStatefulWidget {
   const WebViewStack({
     required this.controller,
     super.key,
@@ -11,10 +14,10 @@ class WebViewStack extends StatefulWidget {
   final WebViewController controller;
 
   @override
-  State<WebViewStack> createState() => _WebViewStackState();
+  ConsumerState<WebViewStack> createState() => _WebViewStackState();
 }
 
-class _WebViewStackState extends State<WebViewStack> {
+class _WebViewStackState extends ConsumerState<WebViewStack> {
   var loadingPercentage = 0;
 
   bool isLoading = false;
@@ -47,7 +50,9 @@ class _WebViewStackState extends State<WebViewStack> {
             }
           },
           onPageFinished: (url) {
-            theUrl = url;
+            final urlString = ref.read(provider.notifier);
+            urlString.state = url;
+
             setState(() {
               isLoading = false;
               loadingPercentage = 100;

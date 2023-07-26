@@ -10,8 +10,8 @@ import 'package:path_provider/path_provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  await Hive.openBox("outlet_box");
-  await Hive.openBox("competition_reviews");
+  await Hive.openBox("url_box");
+  // await Hive.openBox("competition_reviews");
 
   HydratedBloc.storage = await HydratedStorage.build(
       storageDirectory: await getApplicationDocumentsDirectory());
