@@ -233,6 +233,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.4"
+  file_picker:
+    dependency: "direct main"
+    description:
+      name: file_picker
+      sha256: "21145c9c268d54b1f771d8380c195d2d6f655e0567dc1ca2f9c134c02c819e0a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.3.3"
   file_selector_linux:
     dependency: transitive
     description:
@@ -926,13 +934,13 @@ packages:
     source: hosted
     version: "4.2.2"
   webview_flutter_android:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: webview_flutter_android
-      sha256: "8587d0b4991bd0f223f4b4957101c2c7449f905601571315f4967072498dd3fb"
+      sha256: bca797abba472868655b5f1a6029c1132385685ee9db4713cb0e7f33076210c6
       url: "https://pub.dev"
     source: hosted
-    version: "3.9.1"
+    version: "3.9.3"
   webview_flutter_platform_interface:
     dependency: transitive
     description:

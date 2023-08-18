@@ -62,6 +62,8 @@ dependencies:
   connectivity_plus: ^4.0.1
   flutter_launcher_icons: ^0.13.1
   webview_flutter: ^4.2.2
+  webview_flutter_android: ^3.9.3
+  file_picker: ^5.3.3
 
 dev_dependencies:
   flutter_test:

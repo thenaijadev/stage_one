@@ -1,8 +1,12 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nethive/app/presentation/screens/new/navigation_controls.dart';
 import 'package:nethive/utilities/router/routes.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:webview_flutter_android/webview_flutter_android.dart';
 
 final provider = StateProvider((ref) => "");
 
@@ -83,10 +87,28 @@ class _WebViewStackState extends ConsumerState<WebViewStack> {
               .showSnackBar(SnackBar(content: Text(message.message)));
         },
       );
-
+    addFileSelectionListener(widget.controller);
     // ..loadRequest(
     //   Uri.parse("https://gdnportaldemo.nubiaville.com/"),
     // );
+  }
+
+  void addFileSelectionListener(WebViewController controller) async {
+    if (Platform.isAndroid) {
+      final androidController = controller.platform as AndroidWebViewController;
+      await androidController.setOnShowFileSelector(_androidFilePicker);
+    }
+  }
+
+  Future<List<String>> _androidFilePicker(
+      final FileSelectorParams params) async {
+    final result = await FilePicker.platform.pickFiles();
+
+    if (result != null && result.files.single.path != null) {
+      final file = File(result.files.single.path!);
+      return [file.uri.toString()];
+    }
+    return [];
   }
 
   @override
