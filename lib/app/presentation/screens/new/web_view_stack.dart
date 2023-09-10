@@ -116,7 +116,7 @@ class _WebViewStackState extends ConsumerState<WebViewStack> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xff1F5AA2),
-        title: const Text('NETTHIVE'),
+        title: const Text('Stage one'),
         // Add from here...
         actions: [
           NavigationControls(controller: widget.controller, url: theUrl),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nethive/utilities/constants.dart/app_colors.dart';
 
 class TextWidget extends StatelessWidget {
   const TextWidget(
@@ -7,7 +6,7 @@ class TextWidget extends StatelessWidget {
       required this.text,
       this.fontSize = 16,
       this.fontWeight = FontWeight.normal,
-      this.color = AppColors.titleBlack,
+      this.color = Colors.black,
       this.textAlign,
       this.decoration});
   final String? text;

@@ -13,4 +13,5 @@ class Routes {
   static const String logs = "/logs";
   static const String viewSales = "/viewSales";
   static const String noInternet = "/noInternet";
+  static const String webView = "/webView";
 }

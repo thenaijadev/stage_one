@@ -36,7 +36,7 @@ class _WebViewAppState extends ConsumerState<WebViewApp> {
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..loadRequest(
-        Uri.parse('https://gdnportaldemo.nubiaville.com/'),
+        Uri.parse('https://github.com/thenaijadev'),
       );
   }
 
@@ -55,8 +55,7 @@ class _WebViewAppState extends ConsumerState<WebViewApp> {
   navBack() async {
     var urlString = ref.read(provider.notifier);
 
-    if (urlString.state ==
-        "https://gdnportaldemo.nubiaville.com/admin/product_view") {
+    if (urlString.state == "https://github.com/thenaijadev") {
       return;
     }
     final messenger = ScaffoldMessenger.of(context);
